@@ -3,3 +3,6 @@ uvicorn
 pymongo
 joblib
 scikit-learn
+pandas
+os-sys
+gridfs-fuse
