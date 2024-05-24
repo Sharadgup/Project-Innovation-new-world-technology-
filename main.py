@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
-from pymongo import MongoClient, gridfs
+from pymongo import MongoClient
+import gridfs
 import joblib
 import os
 import pandas as pd
