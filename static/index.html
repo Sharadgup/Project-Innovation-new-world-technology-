@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Price Prediction</title>
+    <link rel="stylesheet" href="styles.css">
     <script>
         async function predictPrice() {
             const inputFields = document.querySelectorAll('input');
@@ -26,27 +27,33 @@
     </script>
 </head>
 <body>
-    <h1>House Price Prediction</h1>
-    <form id="prediction-form" onsubmit="event.preventDefault(); predictPrice();">
-        <label for="number_of_bedrooms">Number of Bedrooms:</label>
-        <input type="number" id="number_of_bedrooms" name="number_of_bedrooms" step="any" required><br>
-        
-        <label for="number_of_bathrooms">Number of Bathrooms:</label>
-        <input type="number" id="number_of_bathrooms" name="number_of_bathrooms" step="any" required><br>
-        
-        <label for="square_footage">Square Footage:</label>
-        <input type="number" id="square_footage" name="square_footage" step="any" required><br>
-        
-        <label for="lot_size">Lot Size:</label>
-        <input type="number" id="lot_size" name="lot_size" step="any" required><br>
-        
-        <label for="year_built">Year Built:</label>
-        <input type="number" id="year_built" name="year_built" required><br>
-        
-        <!-- Add more input fields as necessary for your model features -->
-        
-        <button type="submit">Predict</button>
-    </form>
-    <p id="result"></p>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+        <form id="prediction-form" onsubmit="event.preventDefault(); predictPrice();">
+            <div class="form-group">
+                <label for="number_of_bedrooms">Number of Bedrooms:</label>
+                <input type="number" id="number_of_bedrooms" name="number_of_bedrooms" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="number_of_bathrooms">Number of Bathrooms:</label>
+                <input type="number" id="number_of_bathrooms" name="number_of_bathrooms" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="square_footage">Square Footage:</label>
+                <input type="number" id="square_footage" name="square_footage" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="lot_size">Lot Size:</label>
+                <input type="number" id="lot_size" name="lot_size" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="year_built">Year Built:</label>
+                <input type="number" id="year_built" name="year_built" required>
+            </div>
+            <!-- Add more input fields as necessary for your model features -->
+            <button type="submit">Predict</button>
+        </form>
+        <p id="result"></p>
+    </div>
 </body>
 </html>
