@@ -6,3 +6,4 @@ scikit-learn
 pandas
 os-sys
 gridfs-fuse
+xgboost
