@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pymongo import MongoClient
 import gridfs
 import joblib
@@ -9,6 +10,10 @@ from sklearn.preprocessing import StandardScaler
 import xgboost
 
 app = FastAPI()
+
+# Serve the static files in the "static" directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 # MongoDB connection details
 MONGO_URI = "mongodb+srv://shardgupta65:Typer%401345@cluster0.sp87qsr.mongodb.net/chatgpt"
