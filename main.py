@@ -1,10 +1,13 @@
 from fastapi import FastAPI, HTTPException, Request
-from pymongo import MongoClient, gridfs
+from pymongo import MongoClient 
+import gridfs
 import joblib
 import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import xgboost
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -48,13 +51,56 @@ def load_model(model_name):
 model_name = 'best_model.pkl'
 model = load_model(model_name)
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 async def read_root():
-    return {"message": "Welcome to the House Price Prediction API"}
+    html_content = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>House Price Prediction</title>
+    </head>
+    <body>
+        <h1>House Price Prediction</h1>
+        <form id="prediction-form">
+            <label for="feature1">Feature 1:</label>
+            <input type="text" id="feature1" name="feature1"><br><br>
 
-@app.get("/favicon.ico")
-async def read_favicon():
-    return {"message": "Favicon not set"}
+            <label for="feature2">Feature 2:</label>
+            <input type="text" id="feature2" name="feature2"><br><br>
+
+            <!-- Add more input fields as necessary for your model features -->
+
+            <button type="button" onclick="predict()">Predict</button>
+        </form>
+
+        <h2>Prediction Result:</h2>
+        <p id="prediction-result"></p>
+
+        <script>
+            async function predict() {
+                const form = document.getElementById('prediction-form');
+                const formData = new FormData(form);
+                const data = {};
+                formData.forEach((value, key) => { data[key] = value });
+
+                const response = await fetch('/predict/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                document.getElementById('prediction-result').innerText = result.prediction;
+            }
+        </script>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content)
 
 @app.post("/predict/")
 async def predict(request: Request):
