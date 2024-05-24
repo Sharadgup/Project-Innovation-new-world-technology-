@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException, Request
-from pymongo import MongoClient 
-import gridfs
+from pymongo import MongoClient, gridfs
 import joblib
 import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+import xgboost
 
 app = FastAPI()
 
@@ -47,6 +47,14 @@ def load_model(model_name):
 
 model_name = 'best_model.pkl'
 model = load_model(model_name)
+
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the House Price Prediction API"}
+
+@app.get("/favicon.ico")
+async def read_favicon():
+    return {"message": "Favicon not set"}
 
 @app.post("/predict/")
 async def predict(request: Request):
