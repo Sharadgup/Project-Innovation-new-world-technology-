@@ -52,7 +52,7 @@ def load_model(model_name):
         print(f"Failed to load the model: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to load the model: {e}")
 
-model_name = 'best_model.pkl'
+model_name = 'retrieved_model.pkl'
 model = load_model(model_name)
 
 @app.get("/", response_class=HTMLResponse)
